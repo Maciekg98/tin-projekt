@@ -1,0 +1,45 @@
+<%- include('../../fragments/header.ejs') %>
+
+
+    <main>
+        <h2>Orders Details</h2>
+        <form class="form2">
+
+            <label for="title">Ttile:</label>
+            <input type="text" name="title" value="Lord of Rings" id="title" disabled />
+
+            <label for="username">Username:</label>
+            <input type="text" name="username" value="jan001" id="username" disabled />
+
+            <label for="dateOfLoan">Date of loan</label>
+            <input type="date" name="dateOfLoan" value="2020-10-02" id="dateOfLoan" disabled />
+
+
+
+
+            <label for="dateOfReturn">Date of return</label>
+            <input type="date" name="dateOfReturn" value="2020-10-04" id="dateOfReturn" disabled />
+
+            <div id="wrapper">
+                <label for="yes_no_radio">Is paid?</label>
+                <p>
+                    <input type="radio" name="yes_no_radio" id="yes_no_radio" checked disabled>Yes
+                </p>
+                <p>
+                    <input type="radio" name="yes_no_radio" disabled>No
+                </p>
+            </div>
+
+
+
+
+        </form>
+
+        <p>
+            <a class="edit" href="orders-form.html">Edit</a>
+        </p>
+
+        <a class="details" href="orders-list.html">Back</a>
+
+    </main>
+    <%- include('../../fragments/footer.ejs') %>

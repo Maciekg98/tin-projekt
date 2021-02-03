@@ -1,0 +1,59 @@
+<%- include('../../fragments/header.ejs') %>
+
+    <main>
+        <h2>User Details</h2>
+        <form class="form2">
+
+
+            <label for="username">Username:</label>
+            <input type="text" name="username" value="jan00" id="username" disabled />
+
+
+
+
+            <label for="E-mail">E-mail:</label>
+            <input type="email" name="E-mail" value="jan.kowalski@acme.com" id="E-mail" disabled />
+
+
+
+            <label for="password">Password:</label>
+            <input type="password" name="password" value="asdasfas" id="password" disabled />
+
+
+            <p>
+                <a class="edit" href="user-form.html">Edit</a>
+            </p>
+
+        </form>
+        <h2>Orders Details</h2>
+        <table class="table-list">
+            <thead>
+                <tr>
+                    <th>Title</th>
+                    <th>Is Paid?</th>
+                    <th>Date of loan</th>
+                    <th>Date of return</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>Lord of Rings</td>
+                    <td>YES</td>
+                    <td>2020-10-02</td>
+                    <td>2020-10-04</td>
+
+                </tr>
+                <tr>
+                    <td>Godfather</td>
+                    <td>NO</td>
+                    <td>2020-03-20</td>
+                    <td>2020-05-30</td>
+
+
+                </tr>
+            </tbody>
+        </table>
+
+        <a class="details" href="/users">Back</a>
+    </main>
+    <%- include('../../fragments/footer.ejs') %>

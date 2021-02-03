@@ -1,0 +1,55 @@
+<%- include('../../fragments/header.ejs') %>
+    <main>
+        <h2>Movie Details</h2>
+        <form class="form2">
+
+
+            <label for="title">Title:</label>
+            <input type="text" name="title" value="Lord of Rings" id="title" disabled />
+
+
+
+
+            <label for="director">Director:</label>
+            <input type="text" name="director" value="Peter Jackson" id="director" disabled />
+
+
+            <label for="price">Price:</label>
+            <input type="number" name="price" value="10" id="price" disabled />
+
+
+            <p>
+                <a class="edit" href="movie-form.html">Edit</a>
+            </p>
+
+        </form>
+        <h2>Orders Details</h2>
+        <table class="table-list">
+            <thead>
+                <tr>
+                    <th>User</th>
+                    <th>Is paid?</th>
+                    <th>Date of loan</th>
+                    <th>Date of return</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>jan123</td>
+                    <td>YES</td>
+                    <td>2020-10-02</td>
+                    <td>2020-10-04</td>
+                </tr>
+                <tr>
+                    <td>Xxx123</td>
+                    <td>NO</td>
+                    <td>2020-03-20</td>
+                    <td>2020-05-30</td>
+                </tr>
+            </tbody>
+        </table>
+
+        <a class="details" href="/movies">Back</a>
+
+    </main>
+    <%- include('../../fragments/footer.ejs') %>

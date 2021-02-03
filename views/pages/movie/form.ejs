@@ -1,0 +1,111 @@
+<%- include('../../fragments/header.ejs') %>
+
+    <main>
+        <script type="application/javascript" src="/js/validationMovieForm.js"></script>
+
+        <h2>
+            <%= pageTitle %>
+        </h2>
+        <form class="form" method="post" action="<%=formAction%>" novalidate onsubmit=" return validateForm()">
+
+            <input type="hidden" name="_id" value="<%= movie._id %>">
+
+
+            <label for="title">Title:<abbr title="required" aria-label="required">*</abbr></label>
+            <input class="<%= validateErrors.find(e => e.path.includes('title')) ? 'error-input' : '' %>" type="text"
+                name="title" placeholder="2-60 chars" id="title" value="<%= movie.title %>" <%=(formMode=='showDetails'
+                ) ? 'disabled' : '' %>/>
+            <span id="errorTitle" class="errors-text">
+
+                <% if(validateErrors) { if (validateErrors.find(e=> e.path.includes('title'))) { %>
+                    <%= validateErrors.find(e=> e.path.includes('title')).message %>
+                        <% } } %>
+            </span>
+
+
+
+
+            <label for="director">Director:<abbr title="required" aria-label="required">*</abbr></label>
+            <input class="<%= validateErrors.find(e => e.path.includes('director')) ? 'error-input' : '' %>" type="text"
+                name="director" id="director" placeholder="2-60 chars" value="<%= movie.director %>"
+                <%=(formMode=='showDetails' ) ? 'disabled' : '' %> />
+            <span id="errorDirector" class="errors-text">
+                <% if(validateErrors) { if (validateErrors.find(e=> e.path.includes('director'))) { %>
+                    <%= validateErrors.find(e=> e.path.includes('director')).message %>
+                        <% } } %>
+            </span>
+
+
+
+
+
+            <label for="price">Price:<abbr title="required" aria-label="required">*</abbr></label>
+            <input class="<%= validateErrors.find(e => e.path.includes('price')) ? 'error-input' : '' %>" type="price"
+                name="price" id="price" placeholder=" " value="<%= movie.price %>" <%=(formMode=='showDetails' )
+                ? 'disabled' : '' %> />
+            <span id="errorPrice" class="errors-text">
+
+                <% if(validateErrors) { if (validateErrors.find(e=> e.path.includes('price'))) { %>
+                    <%= validateErrors.find(e=> e.path.includes('price')).message %>
+                        <% } } %>
+            </span>
+
+
+
+
+            <% if (formMode=='showDetails' ) { %>
+
+                <% } %>
+
+                    <div class="form-buttons">
+                        <p id="errorsSummary" class="errors-text"></p>
+                        <% if (formMode !='showDetails' ) { %>
+                            <input class="form-button-submit" type="submit" value="<%=btnLabel%>" />
+                            <a class="form-button-cancel" href="/movies">Cancel</a>
+                            <% } else { %>
+                                <div class="section-buttons">
+                                    <a href="/movies/edit/<%= movie._id %>" class="edit">Edit</a>
+                                </div>
+                                <a class="details" href="/movies">Back</a>
+                                <% } %>
+
+                    </div>
+
+        </form>
+
+        <% if (formMode=='showDetails' ) { %>
+            <h2>
+                Orders Details
+            </h2>
+            <table class="table-list">
+                <thead>
+                    <tr>
+                        <th>Username</th>
+                        <th>Is Paid?</th>
+                        <th>Date from</th>
+                        <th>Data to</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <% for (let u of movie.orders) { %>
+                        <tr>
+                            <td><a href="/users/details/<%= u.user.user_id %>">
+                                    <%= u.user.username %>
+                                </a></td>
+                            <td>
+                                <%=(u.isPaid==1) ? 'YES' : 'NO' %>
+                            </td>
+                            <td>
+                                <%= u.dateFrom.toISOString().split('T')[0] %>
+                            </td>
+                            <td>
+                                <%= u.dateTo ? u.dateTo.toISOString().split('T')[0] : '' %>
+                            </td>
+                        </tr>
+                        <% } %>
+                </tbody>
+            </table>
+            <% } %>
+
+    </main>
+    <%- include('../../fragments/footer.ejs') %>

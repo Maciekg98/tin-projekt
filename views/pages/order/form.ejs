@@ -1,0 +1,131 @@
+<%- include('../../fragments/header.ejs') %>
+
+    <main>
+        <script type="application/javascript" src="/js/validationOrdersForm.js"></script>
+
+
+        <h2>
+            <%= pageTitle %>
+        </h2>
+
+        <form class="form" method="post" action="<%=formAction%>" novalidate>
+            <input type="hidden" name="_id" value="<%= order[0] && order[0]._id %>">
+
+
+
+
+
+            <label for="userId">Username:<span>* </span></label>
+            <select class="<%= validationErrors.find(e => e.path.includes('user')) ? 'error-input' : '' %>" name="user"
+                id="userId" required <%=(formMode=='showDetails' ) ? 'disabled' : '' %>>
+                <option value="" selected>--choose username--</option>
+                <% for (let i=0; i<allUsers.length; i++) { let user=allUsers[i]; %>
+                    <option value="<%= user._id %>" label="<%= user.username  %>" <%=(order && (
+                        user._id.toString()==order[0].user._id)) ? 'selected' : '' %>></option>
+                    <% } %>
+            </select>
+            <span id="errorUsername" class="errors-text">
+
+                <% if (validationErrors.find(e=> e.path.includes('user'))) { %>
+                    <%= validationErrors.find(e=> e.path.includes('user')).message %>
+                        <% } %>
+            </span>
+
+
+            <label for="movie_id">Title:<span>* </span></label>
+            <select class="<%= validationErrors.find(e => e.path.includes('movie_id')) ? 'error-input' : '' %>"
+                name="movie_id" id="movie_id" required <%=(formMode=='showDetails' ) ? 'disabled' : '' %> >
+                <option value="" selected>--choose title--</option>
+
+                <% for (let i=0; i<allMovies.length; i++) { let movie=allMovies[i]; %>
+                    <option value="<%= movie._id %>" label="<%= movie.title  %>" <%=order &&(
+                        movie._id.toString()==order[0].movie._id) ? 'selected' : '' %>></option>
+                    <% } %>
+            </select>
+
+            <span id="errorTitle" class="errors-text">
+                <% if (validationErrors.find(e=> e.path.includes('movie_id'))) { %>
+                    <%= validationErrors.find(e=> e.path.includes('movie_id')).message %>
+                        <% } %>
+            </span>
+
+
+
+
+
+
+            <label for="dateFrom">Date from:<sup>*</sup></label>
+            <input type="date" name="dateFrom" id="dateFrom" placeholder=""
+                class="<%= validationErrors.find(e => e.path.includes('dateFrom')) ? 'error-input' : '' %>"
+                value="<%= order ?  order[0].dateFrom.toISOString().split('T')[0] : "" %>" <%=(formMode=='showDetails' )
+                ? 'disabled' : '' %>>
+            <span id="errorFrom" class="errors-text">
+                <% if (validationErrors.find(e=> e.path.includes('dateFrom'))) { %>
+                    <%= validationErrors.find(e=> e.path.includes('dateFrom')).message %>
+                        <% } %>
+
+            </span>
+
+
+
+            <label for="dateTo">Date of return:<sup>*</sup></label>
+            <input type="date" name="dateTo" id="dateTo"
+                class="<%= validationErrors.find(e => e.path.includes('dateTo')) ? 'error-input' : '' %>"
+                value="<%= order ? order[0].dateTo.toISOString().split('T')[0] : "" %>" <%=(formMode=='showDetails' )
+                ? 'disabled' : '' %>>
+            <span id="errorTo" class="errors-text">
+
+                <% if (validationErrors.find(e=> e.path.includes('dateTo'))) { %>
+                    <%= validationErrors.find(e=> e.path.includes('dateTo')).message %>
+                        <% } %>
+            </span>
+
+
+
+            <div id="wrapper">
+                <label for="yes_no_radio">Is paid?</label>
+                <p>
+
+                    <input type="radio"
+                        class="<%= validationErrors.find(e => e.path.includes('isPaid')) ? 'error-input' : '' %>"
+                        name="isPaid" id="yes_no_radio" value="1" <%=order ? (order[0].isPaid ? 'checked' : '' ): "" %>
+                    <%=(formMode=='showDetails' ) ? 'disabled ' : '' %>>Yes
+
+                </p>
+                <p>
+                    <input type="radio"
+                        class="<%= validationErrors.find(e => e.path.includes('isPaid')) ? 'error-input' : '' %>"
+                        name="isPaid" value="0" <%=order ? (order[0].isPaid ? '' : 'checked' ): "" %>
+                    <%=(formMode=='showDetails' ) ? 'disabled' : '' %>>No
+                </p>
+            </div>
+            <span id="errorWrap" class="errors-text">
+                <% if (validationErrors.find(e=> e.path.includes('isPaid'))) { %>
+                    <%= validationErrors.find(e=> e.path.includes('isPaid')).message %>
+                        <% } %>
+            </span>
+
+
+
+
+            <% if (formMode=='showDetails' ) { %>
+
+                <% } %>
+
+                    <div class="form-buttons">
+                        <p id="errorsSummary" class="errors-text"></p>
+                        <% if (formMode !='showDetails' ) { %>
+                            <input class="form-button-submit" type="submit" value="<%=btnLabel%>" />
+                            <a class="form-button-cancel" href="/orders">Cancel</a>
+                            <% } else { %>
+                                <div class="section-buttons">
+                                    <a href="/orders/edit/<%= order[0]._id %>" class="edit">Edit</a>
+                                </div>
+                                <a class="details" href="/orders">Back</a>
+                                <% } %>
+
+                    </div>
+        </form>
+
+    </main>
+    <%- include('../../fragments/footer.ejs') %>

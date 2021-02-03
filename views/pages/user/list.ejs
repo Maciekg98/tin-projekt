@@ -1,0 +1,44 @@
+<%- include('../../fragments/header.ejs') %>
+
+    <main>
+
+        <h2>Users List</h2>
+
+        <table class="table-list">
+
+            <thead>
+
+                <tr>
+                    <th>Username</th>
+                    <th>E-mail</th>
+                    <th>Action</th>
+                </tr>
+
+            </thead>
+
+            <tbody>
+
+                <% for (let user of users) { %>
+                    <tr>
+                        <td>
+                            <%= user.username %>
+                        </td>
+                        <td>
+                            <%= user.email %>
+                        </td>
+                        <td>
+                            <ul class="list-actions">
+                                <li><a href="/users/details/<%= user._id %>" class="details">Details</a></li>
+                                <li><a href="/users/edit/<%=user._id%>" class="edit">Edit</a></li>
+                                <li><a href="/users/delete/<%=user._id%>" class="delete">Delete</a>
+                                </li>
+                            </ul>
+                        </td>
+                    </tr>
+                    <% } %>
+            </tbody>
+        </table>
+        <p><a class="button-add" href="/users/add">Add user</a></p>
+
+    </main>
+    <%- include('../../fragments/footer.ejs') %>

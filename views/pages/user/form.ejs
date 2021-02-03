@@ -1,0 +1,113 @@
+<%- include('../../fragments/header.ejs') %>
+
+    <main>
+        <script type="application/javascript" src="/public/js/validationUserForm.js"></script>
+
+        <h2>
+            <%= pageTitle %>
+        </h2>
+        <form class="form" method="post" action="<%=formAction%>" novalidate>
+
+            <input type="hidden" name="_id" value="<%= user._id %>">
+
+
+            <label for="username">Username:<abbr title="required" aria-label="required">*</abbr></label>
+            <input class="<%= validateErrors.find(e => e.path.includes('username')) ? 'error-input' : '' %>" type="text"
+                name="username" placeholder="2-60 chars" id="username" value="<%= user.username %>"
+                <%=(formMode=='showDetails' ) ? 'disabled' : '' %>/>
+            <span id="errorUsername" class="errors-text">
+                <% if(validateErrors) { if (validateErrors.find(e=> e.path.includes('username'))) { %>
+                    <%= validateErrors.find(e=> e.path.includes('username')).message %>
+                        <% } } %>
+
+            </span>
+
+
+
+
+            <label for="email">Mail:<abbr title="required" aria-label="required">*</abbr></label>
+            <input class="<%= validateErrors.find(e => e.path.includes('email')) ? 'error-input' : '' %>" type="text"
+                name="email" id="email" placeholder="name@domain.com " value="<%= user.email %>"
+                <%=(formMode=='showDetails' ) ? 'disabled' : '' %> />
+            <span id="errorEmail" class="errors-text">
+                <% if(validateErrors) { if (validateErrors.find(e=> e.path.includes('email'))) { %>
+                    <%= validateErrors.find(e=> e.path.includes('email')).message %>
+                        <% } } %>
+
+            </span>
+
+
+
+
+
+            <label for="password">Password:<abbr title="required" aria-label="required">*</abbr></label>
+            <input class="<%= validateErrors.find(e => e.path.includes('password')) ? 'error-input' : '' %>"
+                type="password" name="password" id="password" placeholder=" 7-15 chars" value="<%= user.password %>"
+                <%=(formMode=='showDetails' ) ? 'disabled' : '' %> />
+            <span id="errorPassword" class="errors-text">
+
+                <% if(validateErrors) { if (validateErrors.find(e=> e.path.includes('password'))) { %>
+                    <%= validateErrors.find(e=> e.path.includes('password')).message %>
+                        <% } } %>
+
+            </span>
+
+
+
+
+            <% if (formMode=='showDetails' ) { %>
+
+                <% } %>
+
+                    <div class="form-buttons">
+                        <p id="errorsSummary" class="errors-text"></p>
+                        <% if (formMode !='showDetails' ) { %>
+                            <input class="form-button-submit" type="submit" value="<%=btnLabel%>" />
+                            <a class="form-button-cancel" href="/users">Cancel</a>
+                            <% } else { %>
+                                <div class="section-buttons">
+                                    <a href="/users/edit/<%= user._id %>" class="edit">Edit</a>
+                                </div>
+                                <a class="details" href="/users">Back</a>
+                                <% } %>
+
+                    </div>
+
+        </form>
+
+        <% if (formMode=='showDetails' ) { %>
+            <h2>
+                Orders Details
+            </h2>
+            <table class="table-list">
+                <thead>
+                    <tr>
+                        <th>Title</th>
+                        <th>Is Paid?</th>
+                        <th>Date from</th>
+                        <th>Data to</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <% for (let u of user.orders) { %>
+                        <tr>
+                            <td><a href="/movies/details/<%= u.movie.m_id %>">
+                                    <%= u.movie.title %>
+                                </a></td>
+                            <td>
+                                <%=(u.isPaid==1) ? 'YES' : 'NO' %>
+                            </td>
+                            <td>
+                                <%= u.dateFrom.toISOString().split('T')[0] %>
+                            </td>
+                            <td>
+                                <%= u.dateTo ? u.dateTo.toISOString().split('T')[0] : '' %>
+                            </td>
+                        </tr>
+                        <% } %>
+                </tbody>
+            </table>
+            <% } %>
+
+    </main>
+    <%- include('../../fragments/footer.ejs') %>

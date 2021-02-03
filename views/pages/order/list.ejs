@@ -1,0 +1,47 @@
+<%- include('../../fragments/header.ejs') %>
+
+
+    <main>
+
+        <h2>Orders List</h2>
+
+        <table class="table-list">
+
+            <thead>
+
+                <tr>
+
+                    <th>User</th>
+                    <th>Title</th>
+
+                    <th>Action</th>
+                </tr>
+
+            </thead>
+
+            <tbody>
+                <% for (let order of orders) { %>
+                    <tr>
+                        <td>
+                            <%= order.user.username %>
+                        </td>
+                        <td>
+                            <%= order.movie.title %>
+                        </td>
+                        <td>
+                            <ul class="list-actions">
+                                <li><a href="/orders/details/<%= order._id %>" class="details">Details</a></li>
+                                <li><a href="/orders/edit/<%=order._id%>" class="edit">Edit</a></li>
+                                <li><a href="/orders/delete/<%=order._id%>" class="delete">Delete</a>
+                                </li>
+                            </ul>
+                        </td>
+                    </tr>
+                    <% } %>
+
+            </tbody>
+        </table>
+        <p><a class="button-add" href="/orders/add">Add order</a></p>
+
+    </main>
+    <%- include('../../fragments/footer.ejs') %>

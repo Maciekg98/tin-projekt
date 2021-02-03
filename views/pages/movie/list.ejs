@@ -1,0 +1,59 @@
+<%- include('../../fragments/header.ejs') %>
+
+    <main>
+
+        <h2>Movie List</h2>
+
+        <table class="table-list">
+
+            <thead>
+
+                <tr>
+                    <th>Title</th>
+                    <th>Director</th>
+                    <th>Price</th>
+                    <th>Action</th>
+                </tr>
+
+            </thead>
+
+            <tbody>
+                <% for (let movie of movies) { %>
+
+                    <tr>
+                        <td>
+                            <%= movie.title %>
+                        </td>
+                        <td>
+                            <%= movie.director %>
+                        </td>
+                        <td>
+                            <%= movie.price %>
+                        </td>
+                        <td>
+                            <ul class="list-actions">
+                                <li>
+
+                                    <a href="/movies/details/<%=movie._id%>" class="details">Details</a>
+                                    <a class="infoIcon" href="movie-details.html"><i class="fas fa-info-circle"></i></a>
+                                </li>
+                                <li>
+                                    <a class="edit" href="/movies/edit/<%=movie._id%>">Edit</a>
+                                    <a href="/movies/edit/<%=movie._id%>"><i class="fas fa-edit"></i></a>
+                                </li>
+                                <li>
+                                    <a class="delete" href="/movies/delete/<%=movie._id%>">Delete</a>
+                                    <a href="/movies/delete/<%=movie._id%>"><i class="fas fa-trash"></i></a>
+                                </li>
+                            </ul>
+                        </td>
+                    </tr>
+
+
+                    <% } %>
+            </tbody>
+        </table>
+        <p><a class="button-add" href="movies/add">Add movie</a></p>
+
+    </main>
+    <%- include('../../fragments/footer.ejs') %>
